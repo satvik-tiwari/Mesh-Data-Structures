@@ -10,7 +10,7 @@ struct Vertex
 	
 	bool operator ==(const Vertex& other)const;
 	
-
+	
 };
 
 

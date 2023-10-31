@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 		std::vector<int> edge_ID = face2face.GetEdgeID(argv [1]);
 		
 		//std::cout << "number of edges = " << edge_ID.size() << std::endl;
-		int face = 0;
+		/*int face = 0;
 		for(int edge = 0; edge < edge_ID.size(); )
 		{
 			std::cout <<
@@ -23,12 +23,16 @@ int main(int argc, char **argv)
 			std::setw(2) << std::right << edge_ID[edge++] << " " << 
 			std::endl;			
 		}
+		*/
 		
+		//create other half data structure based on edge array
+		std::vector<int> other_half = CalculateOtherHalf(edge_ID); 
 	}
 	
 	
 	else
 	{
+		//if file name isn't provided, tell the user how to do so
 		std::cout<< "Usage : " << argv[0] << " <Filename>" << std::endl;
 	}
 	
