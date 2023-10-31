@@ -1,11 +1,9 @@
 #include "FileHandler.h"
-#include <stdio.h>
+
 
 FileHandler::FileHandler()
 {
-
 	vertices.resize(0);
-
 }
 
 //if not the name of texte file
@@ -68,17 +66,23 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	
 	while(getline(source,line) && lineCount < 8)
 	{
-		//extract number of vertices 
+		//extract number of vertices from line number 7
 		if(lineCount == 7)
 		{
+		 // std::cout << "Line :\n" << line << std::endl;
+		 // std::cout << "Line Size = " << line.size() << std::endl;
 			for(int idx = 0; idx < line.size(); idx++)
 			{
+				//std::cout << line[idx];
 				if(line[idx] == '=')
 				{
+					//std::cout<< "\nNumber of vertices inside = " << numVertices << std::endl;
 					idx++;
 					while(line[idx] != ' ')
 					{
-						numVertices = numVertices*10 + line[idx];
+					//	std::cout << "At idx : " << idx << " Value : " << line[idx] << std::endl;
+						numVertices = numVertices*10 + (line[idx] - 48);
+					//	std::cout << "NumV = " << numVertices << std::endl;
 						idx++;
 						
 					}
@@ -95,6 +99,11 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 		lineCount++;
 	}
 	
+	
+	//std::cout<< "First Line Count = " << lineCount << std::endl;
+	//std::cout<< "Number of vertices Final = " << numVertices << std::endl;
+	//if(numVertices > 50)
+	//numVertices = 0;
 	//already skipped 1 line
 	//now skip number of vertices lines
 	lineCount = 1;
@@ -102,6 +111,7 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	{
 		lineCount++;
 	}
+	
 	
 	//now we are on first face line
 	//if time permits optimize vectors
@@ -111,10 +121,23 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	{
 		//dumping "face" and face index in temp
 		source >> temp;
+		//std::cout << "Temp1 : " << temp << ", ";
 		source >> temp;
+	//	std::cout << "Temp2 : " << temp << ", ";
+		
+		//std::cout << "Edge " << edge << ": ";
 		source >> edge_ID[edge++];
+		//std::cout << edge_ID[edge-1] << ", ";
+		
+		//std::cout << "Edge " << edge << ": ";
 		source >> edge_ID[edge++];
+		//std::cout << edge_ID[edge-1] << ", ";
+		
+		//std::cout << "Edge " << edge << ": ";
 		source >> edge_ID[edge++];
+		//std::cout << edge_ID[edge-1] << " " <<std::endl;
+		
+		
 	}
 
 	source.close();
@@ -168,8 +191,8 @@ void FileHandler::WriteFile(const char *file, const char *object,
 	//delete[] buffer;
 							
 	destination	<< "\n" 
-							<< "# Vertices= " << vertices.size() 
-							<< " Faces= " << faceIndices.size()/3 
+							<< "# Vertices=" << vertices.size() 
+							<< " Faces=" << faceIndices.size()/3 
 							<< "\n"
 							<< "# \n";
 							

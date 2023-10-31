@@ -3,6 +3,8 @@
 #include "Vertex.h"
 #include <iomanip>
 #include <string>
+#include <stdio.h>
+#include <iostream>
 
 class FileHandler
 {

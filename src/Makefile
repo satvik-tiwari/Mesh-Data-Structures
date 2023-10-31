@@ -5,10 +5,15 @@ all: face2faceindex
 
 
 face2faceindex : Face2FaceIndex.o FaceIndex.o FileHandler.o Vertex.o
-								echo "Linking and producing Face2Face format executable."
+								 echo "Linking and producing Face2Face executable."
 								
 										g++ -o face2faceindex Face2FaceIndex.o FaceIndex.o FileHandler.o Vertex.o
-			
+										
+
+directededge : FaceIndex2DirectedEdge.o FileHandler.o
+							 echo "Linking and producing Directed Edge executable."							
+										
+										g++ -o directededge FaceIndex2DirectedEdge.o FileHandler.o
 			   
 Face2FaceIndex.o : Face2FaceIndex.cpp Face2FaceIndex.h \
 									 Vertex.o \
@@ -17,6 +22,12 @@ Face2FaceIndex.o : Face2FaceIndex.cpp Face2FaceIndex.h \
 									 
 									 echo "Compiling the Face2FaceIndex file."
 			   								g++ -c Face2FaceIndex.cpp
+
+FaceIndex2DirectedEdge.o : FaceIndex2DirectedEdge.cpp FaceIndex2DirectedEdge.h \
+													 FileHandler.o
+													
+									 echo	"Compiling FaceIndexDirectedEdge File."
+									 			 g++ -c FaceIndex2DirectedEdge.cpp			
 			   
 			   
 FaceIndex.o : FaceIndex.cpp FaceIndex.h \
@@ -40,4 +51,4 @@ Vertex.o : Vertex.cpp Vertex.h
 clean : 
 
 			echo "Removing everything but the source files"
-			rm Face2FaceIndex.o FaceIndex.o FileHandler.o Vertex.o face2faceindex MyFile.txt MyFile.face MyFile
+			rm Face2FaceIndex.o FaceIndex.o FileHandler.o Vertex.o FaceIndex2DirectedEdge.o face2faceindex MyFile.txt MyFile.face MyFile
