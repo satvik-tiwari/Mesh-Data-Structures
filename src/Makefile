@@ -1,6 +1,6 @@
 all: face2faceindex directededge
 
-
+#put the source folder at the same level of hierarchy as the handout models folder
 
 face2faceindex : Face2FaceIndex.o \
                  FaceIndex.o \
@@ -26,15 +26,12 @@ Face2FaceIndex.o : Face2FaceIndex.cpp Face2FaceIndex.h \
 
 FaceIndex2DirectedEdge.o : FaceIndex2DirectedEdge.cpp FaceIndex2DirectedEdge.h \
 													 FileHandler.o \
-													 OtherHalf.o
+													 OtherHalf.o \
+													 FirstDirectedEdge.o
 													
 									 echo	"Compiling FaceIndexDirectedEdge File."
 									 			 g++ -c FaceIndex2DirectedEdge.cpp			
-
-OtherHalf.o : OtherHalf.cpp OtherHalf.h
-							
-							echo "Compiling Other Half File."
-	                  g++ -c OtherHalf.cpp						
+					
  							    
 															   
 			   
@@ -54,10 +51,15 @@ Vertex.o : Vertex.cpp Vertex.h
 					
 					echo "Compiling the Vertex file."
 			   							g++ -c Vertex.cpp
+			   							
 
+OtherHalf.o : OtherHalf.cpp OtherHalf.h
+							
+							echo "Compiling Other Half File."
+	                  g++ -c OtherHalf.cpp	
 							
 
 clean : 
 
 			echo "Removing everything but the source files"
-			rm Face2FaceIndex.o FaceIndex.o FileHandler.o Vertex.o FaceIndex2DirectedEdge.o OtherHalf.o face2faceindex directededge MyFile.txt MyFile.face MyFile
+			rm face2faceindex directededge Face2FaceIndex.o FaceIndex2DirectedEdge.o FaceIndex.o FileHandler.o Vertex.o OtherHalf.o MyFile.face

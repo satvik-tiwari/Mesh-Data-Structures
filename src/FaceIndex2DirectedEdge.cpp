@@ -26,15 +26,17 @@ int main(int argc, char **argv)
 		*/
 		
 		//create other half data structure based on edge array
-		std::vector<int> other_half = CalculateOtherHalf(edge_ID); 
+		std::vector<int> other_Half = CalculateOtherHalf(edge_ID); 
 		
-		std::cout << "Other Halves : " << std::endl;
+		/*std::cout << "Other Halves : " << std::endl;
 		
-		for(int edge = 0; edge < other_half.size(); edge++)
+		for(int edge = 0; edge < other_Half.size(); edge++)
 		{
-			std::cout << "e" << edge << " e" << other_half[edge] << std::endl;
+			std::cout << "e" << edge << " e" << other_Half[edge] << std::endl;
 			
-		}
+		}*/
+		
+		std::vector<int> first_Directed_Edge = CalculateFirstDirectedEdge(other_Half);
 	}
 	
 	
