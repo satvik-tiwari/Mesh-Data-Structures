@@ -39,13 +39,13 @@ int main(int argc, char **argv)
 		long numVertices = edge_ID.size()/3; //wont be same for legman and hexahedron, look into it later
 		std::vector<int> first_DirectedEdge = CalculateFirstDirectedEdge(edge_ID, numVertices);
 		
-		std::cout << "Directed Edges : " << std::endl;
+		/*std::cout << "Directed Edges : " << std::endl;
 		
 		for(int v_ID = 0; v_ID < first_DirectedEdge.size(); v_ID++)
 		{
-			std::cout << "v" << v_ID << " e" << first_DirectedEdge[0] << std::endl;
+			std::cout << "v" << v_ID << " e" << first_DirectedEdge[v_ID] << std::endl;
 			
-		}
+		}*/
 	}
 	
 	
