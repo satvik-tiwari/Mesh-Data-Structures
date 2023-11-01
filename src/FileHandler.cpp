@@ -170,6 +170,28 @@ std::vector<Vertex> FileHandler::ReadFile(char *file)
 	return vertices;
 }
 
+/*
+void FileHandler::HeaderBlock(std::ofstream &destination)
+{
+	//write the header part of the file
+	
+}
+
+
+void FileHandler::VertexBlock(std::ofstream &destination)
+{
+	//write the vertex part of the file
+	
+}
+
+void FileHandler::FaceBlock(std::ofstream &destination)
+{
+	//write the face part of the file
+	
+}
+
+*/
+
 //change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
 void FileHandler::WriteFile(const char *file, const char *object, 
 														const std::vector <int> &faceIndices)
