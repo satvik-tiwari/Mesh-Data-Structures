@@ -14,7 +14,8 @@ face2faceindex : Face2FaceIndex.o \
 directededge : FaceIndex2DirectedEdge.o FileHandler.o OtherHalf.o
 							 echo "Linking and producing Directed Edge executable."							
 										
-										g++ -o directededge FaceIndex2DirectedEdge.o FileHandler.o OtherHalf.o
+										g++ -o directededge FaceIndex2DirectedEdge.o FileHandler.o OtherHalf.o FirstDirectedEdge.o
+			   # g++ -o directededge FaceIndex2DirectedEdge.o FileHandler.o OtherHalf.o
 			   
 Face2FaceIndex.o : Face2FaceIndex.cpp Face2FaceIndex.h \
 									 Vertex.o \
@@ -31,9 +32,7 @@ FaceIndex2DirectedEdge.o : FaceIndex2DirectedEdge.cpp FaceIndex2DirectedEdge.h \
 													
 									 echo	"Compiling FaceIndexDirectedEdge File."
 									 			 g++ -c FaceIndex2DirectedEdge.cpp			
-					
- 							    
-															   
+																				   
 			   
 FaceIndex.o : FaceIndex.cpp FaceIndex.h \
 							Vertex.o
@@ -57,9 +56,14 @@ OtherHalf.o : OtherHalf.cpp OtherHalf.h
 							
 							echo "Compiling Other Half File."
 	                  g++ -c OtherHalf.cpp	
-							
+
+FirstDirectedEdge.o : FirstDirectedEdge.cpp FirstDirectedEdge.h
+											
+											echo "Compiling	First Directed Edge File."
+											
+											g++ -c FirstDirectedEdge.cpp
 
 clean : 
 
 			echo "Removing everything but the source files"
-			rm face2faceindex directededge Face2FaceIndex.o FaceIndex2DirectedEdge.o FaceIndex.o FileHandler.o Vertex.o OtherHalf.o MyFile.face
+			rm face2faceindex directededge Face2FaceIndex.o FaceIndex2DirectedEdge.o FaceIndex.o FileHandler.o Vertex.o OtherHalf.o FirstDirectedEdge.o MyFile.face
