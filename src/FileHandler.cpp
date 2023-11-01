@@ -170,54 +170,40 @@ std::vector<Vertex> FileHandler::ReadFile(char *file)
 	return vertices;
 }
 
-/*
 void FileHandler::HeaderBlock(std::ofstream &destination)
 {
-	//write the header part of the file
+	//write the header block of the file
+	destination << "# University of Leeds 2023-2024 \n"
+							<< "# COMP 5812M Assignment 1 \n"
+							<< "# Satvik Tiwari \n"
+							<< "# 201791342 \n"
+							<< "# \n";
+							
+}
+
+void FileHandler::ObjectBlock(std::ofstream &destination,
+															const char *object,
+															int faceIndicesSize)
+{
+	//write the object name and its information on the file
+	
+	destination << "# Object Name: ";	
+							//object name
+	ExtractObjectName(object, destination);
+	
+		destination	<< "\n" 
+							  << "# Vertices=" << vertices.size() 
+							  << " Faces=" << faceIndicesSize
+							  << "\n"
+							  << "# \n";
 	
 }
 
 
 void FileHandler::VertexBlock(std::ofstream &destination)
 {
-	//write the vertex part of the file
+	//write the vertex block of the file
 	
-}
-
-void FileHandler::FaceBlock(std::ofstream &destination)
-{
-	//write the face part of the file
-	
-}
-
-*/
-
-//change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
-void FileHandler::WriteFile(const char *file, const char *object, 
-														const std::vector <int> &faceIndices)
-{
-	std::ofstream destination;//(file);
-	
-	destination.open(file);
-	
-	destination << "# University of Leeds 2023-2024 \n"
-							<< "# COMP 5812M Assignment 1 \n"
-							<< "# Satvik Tiwari \n"
-							<< "# 201791342 \n"
-							<< "# \n"
-							<< "# Object Name: ";
-							
-							//object name
-	ExtractObjectName(object, destination);
-	//destination.write(buffer, sizeof(buff_)/sizeof(buff_[0]));
-	//delete[] buffer;
-							
-	destination	<< "\n" 
-							<< "# Vertices=" << vertices.size() 
-							<< " Faces=" << faceIndices.size()/3 
-							<< "\n"
-							<< "# \n";
-							
 	for(int vertex = 0; vertex < vertices.size(); vertex++)
 	{
 		
@@ -228,8 +214,14 @@ void FileHandler::WriteFile(const char *file, const char *object,
 		std::setw(4) << std::right << vertices[vertex].z << " \n";
 				
   }
-  
-  int face = 0;
+	
+}
+
+void FileHandler::FaceBlock(std::ofstream &destination,
+														const std::vector <int> &faceIndices)
+{
+	//write the face block of the file
+	int face = 0;
 	for(int edge = 0; edge < faceIndices.size(); )
 	{
 		destination << "Face " <<
@@ -238,6 +230,69 @@ void FileHandler::WriteFile(const char *file, const char *object,
 		std::setw(2) << std::right << faceIndices[edge++] << " " << 
 		std::setw(2) << std::right << faceIndices[edge++] << "\n";			
 	}
+}
+
+
+
+//change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
+void FileHandler::WriteFile(const char *file, const char *object, 
+														const std::vector <int> &faceIndices)
+{
+	std::ofstream destination;//(file);
+	
+	destination.open(file);
+	
+	HeaderBlock(destination);
+	
+	ObjectBlock(destination, object, faceIndices.size()/3);
+	
+	VertexBlock(destination);
+	
+	FaceBlock(destination, faceIndices);
+	
+	/*destination << "# University of Leeds 2023-2024 \n"
+							<< "# COMP 5812M Assignment 1 \n"
+							<< "# Satvik Tiwari \n"
+							<< "# 201791342 \n"
+							<< "# \n"
+							<< "# Object Name: ";
+	*/						
+	/*						//object name
+	ExtractObjectName(object, destination);
+	*/
+	//destination.write(buffer, sizeof(buff_)/sizeof(buff_[0]));
+	//delete[] buffer;
+							
+	/*destination	<< "\n" 
+							<< "# Vertices=" << vertices.size() 
+							<< " Faces=" << faceIndices.size()/3 
+							<< "\n"
+							<< "# \n";*/
+	
+	
+	/*						
+	for(int vertex = 0; vertex < vertices.size(); vertex++)
+	{
+		
+		destination << "Vertex " <<
+		std::setw(2) << std::right << vertex << " " << 
+		std::setw(4) << std::right << vertices[vertex].x << " " <<
+		std::setw(4) << std::right << vertices[vertex].y << " " << 
+		std::setw(4) << std::right << vertices[vertex].z << " \n";
+				
+  }
+  */
+  
+  /*
+  int face = 0;
+	for(int edge = 0; edge < faceIndices.size(); )
+	{
+		destination << "Face " <<
+	  std::setw(2) << std::right << face++ << " " << 
+		std::setw(2) << std::right << faceIndices[edge++] << " " << 
+		std::setw(2) << std::right << faceIndices[edge++] << " " << 
+		std::setw(2) << std::right << faceIndices[edge++] << "\n";			
+	}*/
 							
 																	
 	destination.close();						

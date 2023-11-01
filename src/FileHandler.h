@@ -26,6 +26,17 @@ class FileHandler
 				void WriteFile(const char *file, const char *object,
 											const std::vector <int> &faceIndices);
 											
+				void HeaderBlock(std::ofstream &destination);	
+				
+				void ObjectBlock(std::ofstream &destination,
+															const char *object,
+															int faceIndicesSize);
+															
+        void VertexBlock(std::ofstream &destination);
+        
+        void FaceBlock(std::ofstream &destination,
+        							 const std::vector <int> &faceIndices);						
+											
 				std::vector<int> GetEdgeID(char *file);
 				
 				
