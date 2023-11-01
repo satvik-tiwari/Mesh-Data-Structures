@@ -100,18 +100,26 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	}
 	
 	
-	//std::cout<< "First Line Count = " << lineCount << std::endl;
-	//std::cout<< "Number of vertices Final = " << numVertices << std::endl;
-	//if(numVertices > 50)
-	//numVertices = 0;
 	//already skipped 1 line
-	//now skip number of vertices lines
+	//now store all the vertices for later use, to print the same 
 	lineCount = 1;
+	
+	/*
 	while(getline(source, line) && lineCount < numVertices)
 	{
+		
+		
 		lineCount++;
+	}*/
+	std::string temp;
+	for(int vertex = 0; vertex < numVertices; vertex++)
+	{
+		source >> temp;
+		source >> temp;
+		source >> vertices[vertex].x >> vertices[vertex].y >> vertices[vertex].z;	
 	}
 	
+	source.temp >> 
 	
 	//now we are on first face line
 	//if time permits optimize vectors
