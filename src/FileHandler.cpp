@@ -101,17 +101,9 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	
 	
 	//already skipped 1 line
-	//now store all the vertices for later use, to print the same 
-	lineCount = 1;
-	
-	/*
-	while(getline(source, line) && lineCount < numVertices)
-	{
-		
-		
-		lineCount++;
-	}*/
-	std::string temp;
+	//now store all the vertices for later use, to write the same 
+	vertices.resize(numVertices);
+	std::string temp;     //dump variable
 	for(int vertex = 0; vertex < numVertices; vertex++)
 	{
 		source >> temp;
@@ -119,12 +111,11 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 		source >> vertices[vertex].x >> vertices[vertex].y >> vertices[vertex].z;	
 	}
 	
-	source.temp >> 
 	
 	//now we are on first face line
 	//if time permits optimize vectors
 	edge_ID.resize(numVertices);
-	std::string temp;
+	//std::string temp;
 	for(int edge = 0; edge < numVertices; )
 	{
 		//dumping "face" and face index in temp
@@ -243,7 +234,7 @@ void FileHandler::FaceBlock(std::ofstream &destination,
 
 
 //change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
-void FileHandler::WriteFile(const char *file, const char *object, 
+void FileHandler::WriteFaceFileFormat((const char *file, const char *object, 
 														const std::vector <int> &faceIndices)
 {
 	std::ofstream destination;//(file);
@@ -257,53 +248,20 @@ void FileHandler::WriteFile(const char *file, const char *object,
 	VertexBlock(destination);
 	
 	FaceBlock(destination, faceIndices);
-	
-	/*destination << "# University of Leeds 2023-2024 \n"
-							<< "# COMP 5812M Assignment 1 \n"
-							<< "# Satvik Tiwari \n"
-							<< "# 201791342 \n"
-							<< "# \n"
-							<< "# Object Name: ";
-	*/						
-	/*						//object name
-	ExtractObjectName(object, destination);
-	*/
-	//destination.write(buffer, sizeof(buff_)/sizeof(buff_[0]));
-	//delete[] buffer;
-							
-	/*destination	<< "\n" 
-							<< "# Vertices=" << vertices.size() 
-							<< " Faces=" << faceIndices.size()/3 
-							<< "\n"
-							<< "# \n";*/
-	
-	
-	/*						
-	for(int vertex = 0; vertex < vertices.size(); vertex++)
-	{
-		
-		destination << "Vertex " <<
-		std::setw(2) << std::right << vertex << " " << 
-		std::setw(4) << std::right << vertices[vertex].x << " " <<
-		std::setw(4) << std::right << vertices[vertex].y << " " << 
-		std::setw(4) << std::right << vertices[vertex].z << " \n";
-				
-  }
-  */
-  
-  /*
-  int face = 0;
-	for(int edge = 0; edge < faceIndices.size(); )
-	{
-		destination << "Face " <<
-	  std::setw(2) << std::right << face++ << " " << 
-		std::setw(2) << std::right << faceIndices[edge++] << " " << 
-		std::setw(2) << std::right << faceIndices[edge++] << " " << 
-		std::setw(2) << std::right << faceIndices[edge++] << "\n";			
-	}*/
-							
 																	
 	destination.close();						
 }
+
+
+
+
+/*
+void FileHandler::file.WriteDirectedEdgeFormat(std::vector<int> &first_DirectedEdge, 
+														 std::vector<int> &ohter_Half)
+{
+	std::ofstream destination;
+}			*/											 
+
+
 
 

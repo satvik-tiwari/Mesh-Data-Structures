@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 		//if time permits generate proper file name
 		//std::ofstream MyFile("MyFile.face");
 		char myFile[] = {'M','y','F','i','l','e','.','f','a','c','e'};
-		triangleSoup.WriteFile("MyFile.face", argv[1], faceIndices);
+		triangleSoup.WriteFaceFileFormat(("MyFile.face", argv[1], faceIndices);
 	}
 	
 	

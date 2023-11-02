@@ -23,7 +23,7 @@ class FileHandler
 				void ExtractObjectName(const char *object,
 																	     std::ofstream &destination);
 				
-				void WriteFile(const char *file, const char *object,
+				void WriteFaceFileFormat(const char *file, const char *object,
 											const std::vector <int> &faceIndices);
 											
 				void HeaderBlock(std::ofstream &destination);	

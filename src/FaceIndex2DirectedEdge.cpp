@@ -8,9 +8,9 @@ int main(int argc, char **argv)
 		//read a .face file and compute half edge and first directed edge
 		//data structures and output them in a file with ".diredge"
 		
-		FileHandler face2face;
+		FileHandler file;
 		
-		std::vector<int> edge_ID = face2face.GetEdgeID(argv [1]);
+		std::vector<int> edge_ID = file.GetEdgeID(argv [1]);
 		
 		//std::cout << "number of edges = " << edge_ID.size() << std::endl;
 		/*int face = 0;
@@ -46,6 +46,10 @@ int main(int argc, char **argv)
 			std::cout << "v" << v_ID << " e" << first_DirectedEdge[v_ID] << std::endl;
 			
 		}*/
+		
+		file.WriteDirectedEdgeFormat(first_DirectedEdge, ohter_Half);
+		
+		
 	}
 	
 	
