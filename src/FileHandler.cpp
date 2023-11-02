@@ -234,7 +234,7 @@ void FileHandler::FaceBlock(std::ofstream &destination,
 
 
 //change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
-void FileHandler::WriteFaceFileFormat((const char *file, const char *object, 
+void FileHandler::WriteFaceFileFormat(const char *file, const char *object, 
 														const std::vector <int> &faceIndices)
 {
 	std::ofstream destination;//(file);

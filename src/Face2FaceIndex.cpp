@@ -49,8 +49,18 @@ int main(int argc, char **argv)
 		
 		//if time permits generate proper file name
 		//std::ofstream MyFile("MyFile.face");
-		char myFile[] = {'M','y','F','i','l','e','.','f','a','c','e'};
-		triangleSoup.WriteFaceFileFormat(("MyFile.face", argv[1], faceIndices);
+		std::string objectFileName = "";
+		std::string fileName = argv[1];
+		std::size_t endPos = fileName.find_first_of(".tri");
+		std::size_t startPos = fileName.find_last_of('/');
+		
+    if( startPos != std::string::npos && endPos != std::string::npos)
+    {
+        // Get substring from before the '.'
+        objectFileName = fileName.substr(startPos+1, endPos);
+    }
+    std::cout << "File name : " << objectFileName << " Realname : " << fileName;
+		triangleSoup.WriteFaceFileFormat("MyFile.face", argv[1], faceIndices);
 	}
 	
 	

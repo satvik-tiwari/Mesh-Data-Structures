@@ -47,7 +47,7 @@ int main(int argc, char **argv)
 			
 		}*/
 		
-		file.WriteDirectedEdgeFormat(first_DirectedEdge, ohter_Half);
+		//file.WriteDirectedEdgeFormat(first_DirectedEdge, other_Half);
 		
 		
 	}
