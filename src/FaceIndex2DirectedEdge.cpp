@@ -47,7 +47,23 @@ int main(int argc, char **argv)
 			
 		}*/
 		
-		file.WriteDirectedEdgeFormat("MyFile.diredge", argv[1], edge_ID,         
+		std::string objectFileName = "";
+		std::string fileName = argv[1];
+		std::size_t endPos = fileName.find(".face");
+		std::size_t startPos = 0;
+		
+		
+    if( startPos != std::string::npos && endPos != std::string::npos)
+    {
+        
+        
+        objectFileName = fileName.substr(startPos, endPos - 1 - startPos);
+    }
+    
+    objectFileName += ".diredge";
+    //std::cout << objectFileName << std::endl;
+		
+		file.WriteDirectedEdgeFormat(objectFileName.data(), argv[1], edge_ID,         
 																	first_DirectedEdge, other_Half);
 		
 		

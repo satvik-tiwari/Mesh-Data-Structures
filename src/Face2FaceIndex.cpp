@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 		//if time permits generate proper file name
 		//std::ofstream MyFile("MyFile.face");
 		
-		/*
+		
 		std::string objectFileName = "";
 		std::string fileName = argv[1];
 		std::size_t endPos = fileName.find(".tri");
@@ -59,15 +59,15 @@ int main(int argc, char **argv)
 		
     if( startPos != std::string::npos && endPos != std::string::npos)
     {
-        // Get substring from before the '.'
-        //std::cout<< "Strat Pos : " << startPos << " Endpos = " <<endPos<<std::endl;
+        
         
         objectFileName = fileName.substr(startPos+1, endPos - 1 - startPos);
     }
     
-    std::cout << "File name : " << objectFileName << " Realname : " << fileName;
-    */
-		triangleSoup.WriteFaceFileFormat("MyFile.face", argv[1], faceIndices);
+    objectFileName += ".face";
+    triangleSoup.WriteFaceFileFormat(objectFileName.data(), argv[1], faceIndices);
+    
+		//triangleSoup.WriteFaceFileFormat("MyFile.face", argv[1], faceIndices);
 	}
 	
 	
