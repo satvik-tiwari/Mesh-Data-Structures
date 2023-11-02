@@ -42,23 +42,7 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	std::ifstream source;
 	source.open(file);
 	
-	
-	/*
-	while (std::getline(input_file, line))
-	{
-    if (line[0] != "#" )
-    {
-        std::istringstream iss(line);
-        float num; // The number in the line
 
-        //while the iss is a number 
-        while ((iss >> num))
-        {
-            //look at the number
-        }
-    }
-	}
-	*/
 	std::vector<int> edge_ID;
 	std::string line;
 	int lineCount = 1;
@@ -227,11 +211,41 @@ void FileHandler::FaceBlock(std::ofstream &destination,
 	  std::setw(2) << std::right << face++ << " " << 
 		std::setw(2) << std::right << faceIndices[edge++] << " " << 
 		std::setw(2) << std::right << faceIndices[edge++] << " " << 
-		std::setw(2) << std::right << faceIndices[edge++] << "\n";			
+ 		std::setw(2) << std::right << faceIndices[edge++] << "\n";			
+	}
+	
+	
+}
+
+void FileHandler::FirstDirectedEdgeBlock(std::ofstream &destination,
+																					const std::vector <int> &first_DirectedEdge)
+{
+	//write the first directed edge block of the file
+	
+	int numVertex = first_DirectedEdge.size();
+	for(int v_ID = 0; v_ID < numVertex; v_ID++)
+	{
+		destination << "FirstDirectedEdge " <<
+		std::setw(2) << std::right << v_ID << " " <<
+		std::setw(2) << std::right << first_DirectedEdge[v_ID] << "\n"; 
+		
 	}
 }
 
-
+void FileHandler::OtherHalfBlock(std::ofstream &destination,
+																				 const std::vector <int> &other_Half)
+{
+	//write the Other Half block of the file
+	
+	int numOtherHalf = other_Half.size();
+	for(int e_ID = 0; e_ID < numOtherHalf; e_ID++)
+	{
+		destination << "OtherHalf " <<
+		std::setw(2) << std::right << e_ID << " " <<
+		std::setw(2) << std::right << other_Half[e_ID] << "\n";	
+	}
+}
+										
 
 //change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
 void FileHandler::WriteFaceFileFormat(const char *file, const char *object, 
@@ -255,12 +269,30 @@ void FileHandler::WriteFaceFileFormat(const char *file, const char *object,
 
 
 
-/*
-void FileHandler::file.WriteDirectedEdgeFormat(std::vector<int> &first_DirectedEdge, 
-														 std::vector<int> &ohter_Half)
+
+void FileHandler::WriteDirectedEdgeFormat(const char *file, const char *object,
+																					std::vector<int> &edge_ID,
+																					std::vector<int> &first_DirectedEdge, 
+														 							std::vector<int> &other_Half)
 {
 	std::ofstream destination;
-}			*/											 
+	
+	destination.open(file);
+	
+	HeaderBlock(destination);
+	
+	ObjectBlock(destination, object, other_Half.size() / 3);
+	
+	VertexBlock(destination);
+	
+	FirstDirectedEdgeBlock(destination, first_DirectedEdge);
+	
+	FaceBlock(destination, edge_ID);
+	
+	OtherHalfBlock(destination, other_Half);
+	
+	destination.close();
+}														 
 
 
 
