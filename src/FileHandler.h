@@ -9,8 +9,8 @@
 class FileHandler
 {
 	private:
-				
-				std::vector<Vertex> vertices;
+				//to store all the vertices of the mesh only once without repeating
+				std::vector<Vertex> v_ID;
 	
 	public:
 	
@@ -20,10 +20,11 @@ class FileHandler
 				
 				
 				
-				void ExtractObjectName(const char *object,
+				void ObjectName(const char *object,
 																	     std::ofstream &destination);
 				
 				void WriteFaceFileFormat(const char *file, const char *object,
+											const std::vector<Vertex> &v_ID,
 											const std::vector <int> &faceIndices);
 											
 		   	void WriteDirectedEdgeFormat(const char *file, const char *object,

@@ -29,8 +29,11 @@ int main(int argc, char **argv)
 		
 		}*/
 		
-		//if time permits convert faceIndices to actual Face IDs instead of edge IDs
-		std::vector<int> faceIndices = CalculateFaceIndex(vertices);
+		//if time permits convert convert code 
+		//from edge IDs to faceIDs format instead of using edge IDs for faces
+		
+		std::vector<Vertex> v_ID;
+		std::vector<int> faceIndices = CalculateFaceIndex(vertices, v_ID);
 		
 		/*int face = 0;
 		for(int edge = 0; edge < faceIndices.size(); )
@@ -65,7 +68,8 @@ int main(int argc, char **argv)
     }
     
     objectFileName += ".face";
-    triangleSoup.WriteFaceFileFormat(objectFileName.data(), argv[1], faceIndices);
+    triangleSoup.WriteFaceFileFormat(objectFileName.data(), argv[1],
+    																 v_ID, faceIndices);
     
 		//triangleSoup.WriteFaceFileFormat("MyFile.face", argv[1], faceIndices);
 	}

@@ -3,11 +3,11 @@
 
 FileHandler::FileHandler()
 {
-	vertices.resize(0);
+	v_ID.resize(0);
 }
 
 //if not the name of texte file
-void FileHandler::ExtractObjectName(const char *object,
+void FileHandler::ObjectName(const char *object,
 																						 std::ofstream &destination)
 {
 	//calculating the length of the object name
@@ -86,13 +86,13 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	
 	//already skipped 1 line
 	//now store all the vertices for later use, to write the same 
-	vertices.resize(numVertices);
+	v_ID.resize(numVertices);
 	std::string temp;     //dump variable
 	for(int vertex = 0; vertex < numVertices; vertex++)
 	{
 		source >> temp;
 		source >> temp;
-		source >> vertices[vertex].x >> vertices[vertex].y >> vertices[vertex].z;	
+		source >> v_ID[vertex].x >> v_ID[vertex].y >> v_ID[vertex].z;	
 	}
 	
 	
@@ -130,6 +130,9 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 std::vector<Vertex> FileHandler::ReadFile(char *file)
 {
 	std::ifstream source;
+	
+	std::vector<Vertex> vertices; //to store all vertices given in the triangle file
+	vertices.resize(0);
 	
 	long num_faces;
 	long verticesSize;  
@@ -172,10 +175,10 @@ void FileHandler::ObjectBlock(std::ofstream &destination,
 	
 	destination << "# Object Name: ";	
 							//object name
-	ExtractObjectName(object, destination);
+	ObjectName(object, destination);
 	
 		destination	<< "\n" 
-							  << "# Vertices=" << vertices.size() 
+							  << "# Vertices=" << v_ID.size() 
 							  << " Faces=" << faceIndicesSize
 							  << "\n"
 							  << "# \n";
@@ -187,14 +190,14 @@ void FileHandler::VertexBlock(std::ofstream &destination)
 {
 	//write the vertex block of the file
 	
-	for(int vertex = 0; vertex < vertices.size(); vertex++)
+	for(int vertex = 0; vertex < v_ID.size(); vertex++)
 	{
 		
 		destination << "Vertex " <<
 		std::setw(2) << std::right << vertex << " " << 
-		std::setw(4) << std::right << vertices[vertex].x << " " <<
-		std::setw(4) << std::right << vertices[vertex].y << " " << 
-		std::setw(4) << std::right << vertices[vertex].z << " \n";
+		std::setw(4) << std::right << v_ID[vertex].x << " " <<
+		std::setw(4) << std::right << v_ID[vertex].y << " " << 
+		std::setw(4) << std::right << v_ID[vertex].z << " \n";
 				
   }
 	
@@ -249,8 +252,11 @@ void FileHandler::OtherHalfBlock(std::ofstream &destination,
 
 //change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
 void FileHandler::WriteFaceFileFormat(const char *file, const char *object, 
+														const std::vector<Vertex> &v_ID, 
 														const std::vector <int> &faceIndices)
 {
+	this->v_ID = v_ID;
+	
 	std::ofstream destination;//(file);
 	
 	destination.open(file);

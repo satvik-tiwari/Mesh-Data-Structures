@@ -1,3 +1,5 @@
+#include <cmath>
+
 #ifndef Vertex_H
 
 #define Vertex_H
