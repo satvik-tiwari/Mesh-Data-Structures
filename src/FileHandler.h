@@ -20,7 +20,7 @@ class FileHandler
 				
 				
 				
-				void ObjectName(const char *object,
+				void ObjectName(const char *fileName,
 																	     std::ofstream &destination);
 				
 				void WriteFaceFileFormat(const char *file, const char *object,

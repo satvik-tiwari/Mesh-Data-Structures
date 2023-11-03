@@ -1,3 +1,6 @@
+EXT = *.face *.diredge *.o
+
+
 all: face2faceindex directededge
 
 #put the source folder at the same level of hierarchy as the handout models folder
@@ -66,4 +69,10 @@ FirstDirectedEdge.o : FirstDirectedEdge.cpp FirstDirectedEdge.h
 clean : 
 
 			echo "Removing everything but the source files"
-			rm face2faceindex directededge Face2FaceIndex.o FaceIndex2DirectedEdge.o FaceIndex.o FileHandler.o Vertex.o OtherHalf.o FirstDirectedEdge.o MyFile.face
+			
+			for i in $(EXT); do find . -name "$$i" -delete; done
+			
+			
+			#rm face2faceindex directededge Face2FaceIndex.o FaceIndex2DirectedEdge.o FaceIndex.o FileHandler.o Vertex.o OtherHalf.o FirstDirectedEdge.o 
+			
+

@@ -12,8 +12,8 @@ int main(int argc, char **argv)
 		
 		std::vector<int> edge_ID = file.GetEdgeID(argv [1]);
 		
-		//std::cout << "number of edges = " << edge_ID.size() << std::endl;
-		/*int face = 0;
+		std::cout << "number of Faces = " << edge_ID.size() << std::endl;
+		int face = 0;
 		for(int edge = 0; edge < edge_ID.size(); )
 		{
 			std::cout <<
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 			std::setw(2) << std::right << edge_ID[edge++] << " " << 
 			std::endl;			
 		}
-		*/
+		
 		
 		//create other half data structure based on edge array
 		std::vector<int> other_Half = CalculateOtherHalf(edge_ID); 
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     {
         
         
-        objectFileName = fileName.substr(startPos, endPos - 1 - startPos);
+        objectFileName = fileName.substr(startPos, endPos - startPos);
     }
     
     objectFileName += ".diredge";

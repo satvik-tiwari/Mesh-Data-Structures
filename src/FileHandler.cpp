@@ -7,33 +7,39 @@ FileHandler::FileHandler()
 }
 
 //if not the name of texte file
-void FileHandler::ObjectName(const char *object,
+void FileHandler::ObjectName(const char *file,
 																						 std::ofstream &destination)
 {
+
+	  std::string objectName = "";
+	  std::string fileName = file;
+		
+		std::size_t endPos = fileName.find(".tri");
+		std::size_t startPos = fileName.find_last_of('/');
+		
+		
+    if( startPos != std::string::npos && endPos != std::string::npos)
+    {
+        
+        
+        objectName = fileName.substr(startPos+1, endPos - 1 - startPos);
+    }
+    
 	//calculating the length of the object name
-	int len = sizeof(object)/sizeof(object[0]);
-	char buffer[len];
 	
 	
-	if(object[0] >= 'a' && object[0] <= 'z') 
-		buffer[0] = object[0] - 32;		
+	//std::string buffer;
+	
+	if(objectName[0] >= 'a' && objectName[0] <= 'z') 
+		objectName[0] = objectName[0] - 32;		
 		
-	else
-		buffer[0] = object[0];
+	///else
+		//objectName[0] = objectName[0];
 		
-	int i;
-	for(i = 1; i < len ; i++)
-	{
-		if(object[i] == '.')
-		{
-			buffer[i] = '\0';
-			break;
-		}
-			
-		buffer[i] = object[i];	
-	}	
 		
-	destination.write(buffer, i);
+		//buffer += objectName.substr(1);
+	destination << objectName;
+	//destination.write(buffer, i);
 }
 
 std::vector<int> FileHandler::GetEdgeID(char *file)
@@ -84,7 +90,7 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	}
 	
 	
-	//already skipped 1 line
+	//already skipped 1 empty line
 	//now store all the vertices for later use, to write the same 
 	v_ID.resize(numVertices);
 	std::string temp;     //dump variable
