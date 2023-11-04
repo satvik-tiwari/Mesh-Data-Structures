@@ -9,10 +9,12 @@ int main(int argc, char **argv)
 		//data structures and output them in a file with ".diredge"
 		
 		FileHandler file;
+		long numVert = 0;
 		
-		std::vector<int> edge_ID = file.GetEdgeID(argv [1]);
+		std::vector<int> edge_ID = file.GetEdgeID(argv [1], numVert);
 		
-		std::cout << "number of Faces = " << edge_ID.size() << std::endl;
+		/*
+		std::cout << "number of Edges = " << edge_ID.size() << std::endl;
 		int face = 0;
 		for(int edge = 0; edge < edge_ID.size(); )
 		{
@@ -23,6 +25,8 @@ int main(int argc, char **argv)
 			std::setw(2) << std::right << edge_ID[edge++] << " " << 
 			std::endl;			
 		}
+		*/
+		
 		
 		
 		//create other half data structure based on edge array
@@ -36,8 +40,8 @@ int main(int argc, char **argv)
 			
 		}*/
 		
-		long numVertices = edge_ID.size()/3; //wont be same for legman and hexahedron, look into it later
-		std::vector<int> first_DirectedEdge = CalculateFirstDirectedEdge(edge_ID, numVertices);
+		 //wont be same for legman and hexahedron, look into it later
+		std::vector<int> first_DirectedEdge = CalculateFirstDirectedEdge(edge_ID, numVert);
 		
 		/*std::cout << "Directed Edges : " << std::endl;
 		

@@ -21,7 +21,8 @@ class FileHandler
 				
 				
 				void ObjectName(const char *fileName,
-																	     std::ofstream &destination);
+												std::ofstream &destination,
+												bool isFaceFile);
 				
 				void WriteFaceFileFormat(const char *file, const char *object,
 											const std::vector<Vertex> &v_ID,
@@ -37,7 +38,8 @@ class FileHandler
 				
 				void ObjectBlock(std::ofstream &destination,
 															const char *object,
-															int faceIndicesSize);
+															int faceIndicesSize,
+															bool isFaceFile);
 															
         void VertexBlock(std::ofstream &destination);
         
@@ -50,7 +52,7 @@ class FileHandler
 				void OtherHalfBlock(std::ofstream &destination,
 																				 const std::vector <int> &other_Half);																							
 											
-				std::vector<int> GetEdgeID(char *file);
+				std::vector<int> GetEdgeID(char *file, long &numVert);
 				
 				
 };

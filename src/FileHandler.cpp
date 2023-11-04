@@ -8,22 +8,38 @@ FileHandler::FileHandler()
 
 //if not the name of texte file
 void FileHandler::ObjectName(const char *file,
-																						 std::ofstream &destination)
+														std::ofstream &destination,
+														bool isFaceFile)
 {
 
 	  std::string objectName = "";
 	  std::string fileName = file;
 		
-		std::size_t endPos = fileName.find(".tri");
-		std::size_t startPos = fileName.find_last_of('/');
-		
-		
-    if( startPos != std::string::npos && endPos != std::string::npos)
-    {
-        
-        
+		std::size_t endPos, startPos = 0;
+		if(isFaceFile)
+		{
+			endPos = fileName.find(".tri");
+			startPos = fileName.find_last_of('/');
+			
+			if( startPos != std::string::npos && endPos != std::string::npos)
+    	{ 
         objectName = fileName.substr(startPos+1, endPos - 1 - startPos);
-    }
+    	}
+		}
+		
+		else
+		{
+			endPos = fileName.find(".face");
+			
+			if( startPos != std::string::npos && endPos != std::string::npos)
+    	{
+        objectName = fileName.substr(startPos, endPos);
+        //std::cout<< "Object nam : " << objectName;
+   	  }
+		
+		}
+		
+    
     
 	//calculating the length of the object name
 	
@@ -42,7 +58,7 @@ void FileHandler::ObjectName(const char *file,
 	//destination.write(buffer, i);
 }
 
-std::vector<int> FileHandler::GetEdgeID(char *file)
+std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 {
 	//read face 2 face file 		
 	std::ifstream source;
@@ -52,10 +68,12 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	std::vector<int> edge_ID;
 	std::string line;
 	int lineCount = 1;
-	long numVertices = 0;
+	long numVertices, numFaces;
+	numVertices = numFaces = 0;
 	
 	while(getline(source,line) && lineCount < 8)
 	{
+	//std::cout << "Line : " << line << std::endl;
 		//extract number of vertices from line number 7
 		if(lineCount == 7)
 		{
@@ -70,11 +88,28 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 					idx++;
 					while(line[idx] != ' ')
 					{
-					//	std::cout << "At idx : " << idx << " Value : " << line[idx] << std::endl;
+						//std::cout << "At idx : " << idx << " Value : " << line[idx] << std::endl;
 						numVertices = numVertices*10 + (line[idx] - 48);
 					//	std::cout << "NumV = " << numVertices << std::endl;
 						idx++;
 						
+					}
+					
+					 idx++;
+					while(line[idx] != '=')
+					{
+						idx++;
+						
+					}
+					
+					idx++;
+					
+					while(idx < line.size())
+					{
+						//std::cout << "At idx : " << idx << " Value : " << line[idx] << std::endl;
+						numFaces = numFaces*10 + (line[idx] - 48);
+				  	//std::cout << "NumF = " << numFaces << std::endl;
+						idx++;
 					}
 					
 					break;
@@ -89,7 +124,9 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 		lineCount++;
 	}
 	
+	//numFaces = 4;
 	
+	//std::cout << "Vertices = " << numVertices << " Faces = " << numFaces <<std::endl;
 	//already skipped 1 empty line
 	//now store all the vertices for later use, to write the same 
 	v_ID.resize(numVertices);
@@ -104,9 +141,9 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	
 	//now we are on first face line
 	//if time permits optimize vectors
-	edge_ID.resize(numVertices);
+	edge_ID.resize(numFaces * 3);
 	//std::string temp;
-	for(int edge = 0; edge < numVertices; )
+	for(int edge = 0; edge < numFaces * 3; )
 	{
 		//dumping "face" and face index in temp
 		source >> temp;
@@ -130,6 +167,8 @@ std::vector<int> FileHandler::GetEdgeID(char *file)
 	}
 
 	source.close();
+	
+	numVert = numVertices;
 	return edge_ID;
 }
 
@@ -175,13 +214,14 @@ void FileHandler::HeaderBlock(std::ofstream &destination)
 
 void FileHandler::ObjectBlock(std::ofstream &destination,
 															const char *object,
-															int faceIndicesSize)
+															int faceIndicesSize,
+															bool isFaceFile)
 {
 	//write the object name and its information on the file
 	
 	destination << "# Object Name: ";	
 							//object name
-	ObjectName(object, destination);
+	ObjectName(object, destination, isFaceFile);
 	
 		destination	<< "\n" 
 							  << "# Vertices=" << v_ID.size() 
@@ -269,7 +309,7 @@ void FileHandler::WriteFaceFileFormat(const char *file, const char *object,
 	
 	HeaderBlock(destination);
 	
-	ObjectBlock(destination, object, faceIndices.size()/3);
+	ObjectBlock(destination, object, faceIndices.size()/3, true);
 	
 	VertexBlock(destination);
 	
@@ -293,7 +333,7 @@ void FileHandler::WriteDirectedEdgeFormat(const char *file, const char *object,
 	
 	HeaderBlock(destination);
 	
-	ObjectBlock(destination, object, other_Half.size() / 3);
+	ObjectBlock(destination, object, other_Half.size() / 3, false);
 	
 	VertexBlock(destination);
 	
