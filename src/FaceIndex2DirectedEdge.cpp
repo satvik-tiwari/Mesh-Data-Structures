@@ -84,6 +84,8 @@ int main(int argc, char **argv)
 		if(isManifold)
 		{
 				std::cout << "The given mesh " << meshName << " is Manifold." << std::endl;	
+				
+				//code to determine genus of the surface
 		}
 		
 		else
@@ -109,6 +111,8 @@ int main(int argc, char **argv)
 					}
 					
 			  }
+			  
+			  
 		}
 		
 		
