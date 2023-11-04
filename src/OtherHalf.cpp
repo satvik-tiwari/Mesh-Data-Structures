@@ -1,5 +1,9 @@
 #include "OtherHalf.h"
 
+bool isManifold = true;
+std::vector<int> edgeFail;
+bool isEdgeFail = false;
+
 int CalculateNext(int idx)
 {
 	/*int local_idx = idx % 3;
@@ -14,13 +18,13 @@ int CalculateNext(int idx)
 std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID)
 {
 	std::vector<int> otherHalf(edge_ID.size(), -1);
-	
+	edgeFail.resize(0);
 	int numEdges = edge_ID.size(); 
 	
 	//iterating over other half array
 	for(int idx = 0; idx < numEdges; idx++)
 	{
-		//current ver
+		//store the starting and ending vertex of an edge
 		Edge edge;
 		
 		//if the cell in the OtherHalf array is empty, only then calculate other half
@@ -57,8 +61,13 @@ std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID)
 												
 												 else
 													{
-													//not manifold
+													//not manifold	
 													//code for telling not manifold
+													//storing failed edges
+													
+													isManifold = false;
+													isEdgeFail = true;
+													edgeFail.push_back(e);
 													}
 													
 												break;
@@ -71,11 +80,13 @@ std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID)
 				if(!found)
 				{
 			 		//if found = 0, not manifold
-			 		//code for telling not manifold
+			 		//code for telling not manifold and storing failed edges
+			 		isManifold = false;
+			 		isEdgeFail = true;
+			 		edgeFail.push_back(idx);
 			 	}
 				
-				//check for extra edge and extra vertices AND less edges and less vertices
-				//if the other half cell is already occupied not manifold	
+				
     }
   }
   

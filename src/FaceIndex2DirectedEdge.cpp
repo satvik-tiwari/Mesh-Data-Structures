@@ -1,5 +1,11 @@
 #include "FaceIndex2DirectedEdge.h"
 
+extern bool isManifold;
+//extern bool isVertexFail;
+extern bool isEdgeFail;
+extern std::vector<int> edgeFail;
+//extern std::vector<int> vertexFail;
+
 int main(int argc, char **argv)
 {
 	
@@ -10,6 +16,7 @@ int main(int argc, char **argv)
 		
 		FileHandler file;
 		long numVert = 0;
+		extern bool isManifold;
 		
 		std::vector<int> edge_ID = file.GetEdgeID(argv [1], numVert);
 		
@@ -69,6 +76,36 @@ int main(int argc, char **argv)
 		
 		file.WriteDirectedEdgeFormat(objectFileName.data(), argv[1], edge_ID,         
 																	first_DirectedEdge, other_Half);
+		
+		
+		if(isManifold)
+		{
+				std::cout << "The given mesh " << argv[1] << " is Manifold." << std::endl;	
+		}
+		
+		else
+		{
+				std::cout << "The given mesh " << argv[1] << " is NOT Manifold." << std::endl;
+				
+				if(isEdgeFail)
+				{
+					std::cout << "IDs of Failed Edges :" << std::endl;
+					for(int i = 0; i < edgeFail.size(); i++)
+					{
+					  std::cout << "e " << edgeFail[i] << std::endl;
+					}
+				}
+				
+				/*if(isVertexFail)
+				{
+					std::cout << "IDs of Failed Vertices :" << std::endl;
+					for(int i = 0; i < vertexFail.size(); i++)
+					{
+					
+					}
+					
+			  }*/
+		}
 		
 		
 	}

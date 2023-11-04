@@ -6,7 +6,6 @@
 #define OtherHalf_H
 
 
-
 std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID);
 int CalculateNext(int idx);
 
