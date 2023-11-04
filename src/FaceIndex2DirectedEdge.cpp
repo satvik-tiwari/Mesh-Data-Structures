@@ -1,10 +1,10 @@
 #include "FaceIndex2DirectedEdge.h"
 
-extern bool isManifold;
-//extern bool isVertexFail;
-extern bool isEdgeFail;
-extern std::vector<int> edgeFail;
-//extern std::vector<int> vertexFail;
+bool isManifold = true;
+bool isVertexFail = false;
+bool isEdgeFail = false;
+std::vector<int> edgeFail;
+std::vector<int> vertexFail;
 
 int main(int argc, char **argv)
 {
@@ -71,6 +71,9 @@ int main(int argc, char **argv)
         objectFileName = fileName.substr(startPos, endPos - startPos);
     }
     
+    std::string meshName = objectFileName; //storing the name with .tri suffix
+    meshName += ".tri";
+    
     objectFileName += ".diredge";
     //std::cout << objectFileName << std::endl;
 		
@@ -80,12 +83,12 @@ int main(int argc, char **argv)
 		
 		if(isManifold)
 		{
-				std::cout << "The given mesh " << argv[1] << " is Manifold." << std::endl;	
+				std::cout << "The given mesh " << meshName << " is Manifold." << std::endl;	
 		}
 		
 		else
 		{
-				std::cout << "The given mesh " << argv[1] << " is NOT Manifold." << std::endl;
+				std::cout << "The given mesh " << meshName << " is NOT Manifold." << std::endl;
 				
 				if(isEdgeFail)
 				{
@@ -96,15 +99,16 @@ int main(int argc, char **argv)
 					}
 				}
 				
-				/*if(isVertexFail)
+				
+				if(isVertexFail)
 				{
 					std::cout << "IDs of Failed Vertices :" << std::endl;
 					for(int i = 0; i < vertexFail.size(); i++)
 					{
-					
+					  std::cout << "v " << vertexFail[i] << std::endl;
 					}
 					
-			  }*/
+			  }
 		}
 		
 		

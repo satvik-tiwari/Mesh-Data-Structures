@@ -1,8 +1,8 @@
 #include "OtherHalf.h"
 
-bool isManifold = true;
-std::vector<int> edgeFail;
-bool isEdgeFail = false;
+extern bool isManifold;
+extern std::vector<int> edgeFail;
+extern bool isEdgeFail;
 
 int CalculateNext(int idx)
 {
