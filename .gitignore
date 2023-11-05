@@ -11,6 +11,9 @@
 *.dylib
 *.face
 *.diredge
+*face2faceindex
+*directededge
+
 
 # Qt-es
 object_script.*.Release
