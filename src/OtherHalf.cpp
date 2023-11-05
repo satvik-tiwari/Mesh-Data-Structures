@@ -86,7 +86,6 @@ std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID)
 			 		edgeFail.push_back(idx);
 			 	}
 				
-				
     }
   }
   

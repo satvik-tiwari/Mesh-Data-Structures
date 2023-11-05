@@ -6,6 +6,7 @@ bool isEdgeFail = false;
 std::vector<int> edgeFail;
 std::vector<int> vertexFail;
 
+
 int main(int argc, char **argv)
 {
 	
@@ -15,8 +16,7 @@ int main(int argc, char **argv)
 		//data structures and output them in a file with ".diredge"
 		
 		FileHandler file;
-		long numVert = 0;
-		extern bool isManifold;
+		long numVert = 0; //number of vertices defining our mesh, without any duplication
 		
 		std::vector<int> edge_ID = file.GetEdgeID(argv [1], numVert);
 		
@@ -86,6 +86,11 @@ int main(int argc, char **argv)
 				std::cout << "The given mesh " << meshName << " is Manifold." << std::endl;	
 				
 				//code to determine genus of the surface
+				int genus = CalculateGenus(numVert, (edge_ID.size()) / 2, (edge_ID.size()) / 3);
+				
+				std::cout << "Genus of the surface = " << genus << std::endl;
+			  
+			  
 		}
 		
 		else

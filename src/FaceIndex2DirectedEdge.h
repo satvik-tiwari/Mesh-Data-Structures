@@ -6,3 +6,4 @@
 #include "FileHandler.h"
 #include "OtherHalf.h"
 #include "FirstDirectedEdge.h"
+#include "Genus.h"
