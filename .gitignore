@@ -11,8 +11,7 @@
 *.dylib
 *.face
 *.diredge
-*face2faceindex
-*directededge
+*.exe
 
 
 # Qt-es
