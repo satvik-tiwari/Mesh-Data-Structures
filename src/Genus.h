@@ -1,6 +1,6 @@
 #include <cmath>
 
-
+//include guards
 #ifndef Genus_H
 #define Genus_H
 

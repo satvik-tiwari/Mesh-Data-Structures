@@ -34,7 +34,6 @@ void FileHandler::ObjectName(const char *file,
 			if( startPos != std::string::npos && endPos != std::string::npos)
     	{
         objectName = fileName.substr(startPos, endPos);
-        //std::cout<< "Object nam : " << objectName;
    	  }
 		
 		}
@@ -44,18 +43,10 @@ void FileHandler::ObjectName(const char *file,
 	//calculating the length of the object name
 	
 	
-	//std::string buffer;
-	
 	if(objectName[0] >= 'a' && objectName[0] <= 'z') 
 		objectName[0] = objectName[0] - 32;		
 		
-	///else
-		//objectName[0] = objectName[0];
-		
-		
-		//buffer += objectName.substr(1);
 	destination << objectName;
-	//destination.write(buffer, i);
 }
 
 std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
@@ -73,24 +64,21 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 	
 	while(getline(source,line) && lineCount < 8)
 	{
-	//std::cout << "Line : " << line << std::endl;
 		//extract number of vertices from line number 7
 		if(lineCount == 7)
 		{
-		 // std::cout << "Line :\n" << line << std::endl;
-		 // std::cout << "Line Size = " << line.size() << std::endl;
+		
 			for(int idx = 0; idx < line.size(); idx++)
 			{
 				//std::cout << line[idx];
 				if(line[idx] == '=')
 				{
-					//std::cout<< "\nNumber of vertices inside = " << numVertices << std::endl;
+					
 					idx++;
 					while(line[idx] != ' ')
 					{
-						//std::cout << "At idx : " << idx << " Value : " << line[idx] << std::endl;
+						
 						numVertices = numVertices*10 + (line[idx] - 48);
-					//	std::cout << "NumV = " << numVertices << std::endl;
 						idx++;
 						
 					}
@@ -98,17 +86,14 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 					 idx++;
 					while(line[idx] != '=')
 					{
-						idx++;
-						
+						idx++;		
 					}
 					
 					idx++;
 					
 					while(idx < line.size())
 					{
-						//std::cout << "At idx : " << idx << " Value : " << line[idx] << std::endl;
 						numFaces = numFaces*10 + (line[idx] - 48);
-				  	//std::cout << "NumF = " << numFaces << std::endl;
 						idx++;
 					}
 					
@@ -117,16 +102,12 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 				
 			
 			}
-			
-			//break;
+	
 		}
 		
 		lineCount++;
 	}
 	
-	//numFaces = 4;
-	
-	//std::cout << "Vertices = " << numVertices << " Faces = " << numFaces <<std::endl;
 	//already skipped 1 empty line
 	//now store all the vertices for later use, to write the same 
 	v_ID.resize(numVertices);
@@ -147,23 +128,11 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 	{
 		//dumping "face" and face index in temp
 		source >> temp;
-		//std::cout << "Temp1 : " << temp << ", ";
 		source >> temp;
-	//	std::cout << "Temp2 : " << temp << ", ";
 		
-		//std::cout << "Edge " << edge << ": ";
 		source >> edge_ID[edge++];
-		//std::cout << edge_ID[edge-1] << ", ";
-		
-		//std::cout << "Edge " << edge << ": ";
 		source >> edge_ID[edge++];
-		//std::cout << edge_ID[edge-1] << ", ";
-		
-		//std::cout << "Edge " << edge << ": ";
-		source >> edge_ID[edge++];
-		//std::cout << edge_ID[edge-1] << " " <<std::endl;
-		
-		
+		source >> edge_ID[edge++];	
 	}
 
 	source.close();

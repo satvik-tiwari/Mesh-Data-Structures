@@ -46,7 +46,6 @@ std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID)
 						 for(int e = 0; e  < numEdges; e++)
 						 {
 							 //if first vertex of other half edge is found, find the second vertex on the same
-							 // face
 							 	if(edge_ID[e] == otherH.prev)
 							 	{
 										 if(edge_ID[CalculateNext(e)] == otherH.next)
