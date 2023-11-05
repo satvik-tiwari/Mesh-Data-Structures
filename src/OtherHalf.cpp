@@ -4,6 +4,7 @@ extern bool isManifold;
 extern std::vector<int> edgeFail;
 extern bool isEdgeFail;
 
+//calculate end vertex of an edge in a face
 int CalculateNext(int idx)
 {
 	/*int local_idx = idx % 3;
@@ -17,6 +18,8 @@ int CalculateNext(int idx)
 
 std::vector<int> CalculateOtherHalf(std::vector<int> &edge_ID)
 {
+  //initialize the other half array with -1 to denote that cells
+  //are empty
 	std::vector<int> otherHalf(edge_ID.size(), -1);
 	edgeFail.resize(0);
 	int numEdges = edge_ID.size(); 

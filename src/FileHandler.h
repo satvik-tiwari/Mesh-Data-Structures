@@ -13,10 +13,10 @@ class FileHandler
 				std::vector<Vertex> v_ID;
 	
 	public:
-	
+	      //function declarations
 				FileHandler();
 				
-				std::vector<Vertex> ReadFile(char *file);  //if time is remaining, make it const
+				std::vector<Vertex> ReadFile(char *file);  
 				
 				
 				

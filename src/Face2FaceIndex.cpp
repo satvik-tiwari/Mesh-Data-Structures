@@ -1,12 +1,8 @@
 #include "Face2FaceIndex.h"
 #include "FaceIndex.h"
-
-/*
-char * GenerateFileName(const char *name)
-{
-
-}*/ 
-
+ 
+//argc for number of arguments
+//argv for storing the arguments
 int main(int argc, char **argv)
 {
 	
@@ -14,46 +10,17 @@ int main(int argc, char **argv)
 	{
 		FileHandler triangleSoup;
 		
+		//read triangle soup and generate VIDs i.e, vertex array
 		std::vector<Vertex> vertices = triangleSoup.ReadFile(argv[1]);
-		
-		/*for(int vertex = 0; vertex < vertices.size(); vertex++)
-		{
-		
-			std::cout << "Vertex " <<
-			std::setw(2) << std::right << vertex << " " << 
-			std::setw(4) << std::right << vertices[vertex].x << " " <<
-			std::setw(4) << std::right << vertices[vertex].y << " " << 
-			std::setw(4) << std::right << vertices[vertex].z <<
-			std::endl;
-		
-		
-		}*/
-		
+	
 		//if time permits convert convert code 
 		//from edge IDs to faceIDs format instead of using edge IDs for faces
 		
+		//genertae the face indices in the form of half edges, where each face is determined by three consecutive half edges.
 		std::vector<Vertex> v_ID;
 		std::vector<int> faceIndices = CalculateFaceIndex(vertices, v_ID);
 		
-		/*int face = 0;
-		for(int edge = 0; edge < faceIndices.size(); )
-		{
-			std::cout << "Face " <<
-			std::setw(2) << std::right << face++ << " " << 
-			std::setw(2) << std::right << faceIndices[edge++] << " " << 
-			std::setw(2) << std::right << faceIndices[edge++] << " " << 
-			std::setw(2) << std::right << faceIndices[edge++] << " " << 
-			std::endl;			
-		}
-		*/
-		
-		//char [100] = triangleSoup.(argv[1], true);
-		
-		
-		//if time permits generate proper file name
-		//std::ofstream MyFile("MyFile.face");
-		
-		
+		//generate name of the mesh in "mesh.face" format
 		std::string objectFileName = "";
 		std::string fileName = argv[1];
 		std::size_t endPos = fileName.find(".tri");
@@ -68,16 +35,16 @@ int main(int argc, char **argv)
     }
     
     objectFileName += ".face";
+    
+    //write the faces to the file
     triangleSoup.WriteFaceFileFormat(objectFileName.data(), argv[1],
     																 v_ID, faceIndices);
-    
-		//triangleSoup.WriteFaceFileFormat("MyFile.face", argv[1], faceIndices);
 	}
 	
 	
 	else
 	{
-	
+			//if file name isn't provided, tell the user how to do so
 			std::cout<< "Usage : " << argv[0] << " <Filename>" << std::endl;
 	
 	}

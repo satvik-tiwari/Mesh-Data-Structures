@@ -3,6 +3,7 @@
 #include <vector>
 #include "Vertex.h"
 
+//include guard
 #ifndef FACEINDEX_H
 #define FACEINDEX_H
 

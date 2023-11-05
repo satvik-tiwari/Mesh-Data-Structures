@@ -1,12 +1,13 @@
 #include "FileHandler.h"
 
-
+//constructor
 FileHandler::FileHandler()
 {
+	//resizing because i am paranoid
 	v_ID.resize(0);
 }
 
-//if not the name of texte file
+//write the object name to the destination file
 void FileHandler::ObjectName(const char *file,
 														std::ofstream &destination,
 														bool isFaceFile)
@@ -16,6 +17,8 @@ void FileHandler::ObjectName(const char *file,
 	  std::string fileName = file;
 		
 		std::size_t endPos, startPos = 0;
+		
+		//code for writing the name to .face file for given .tri file 
 		if(isFaceFile)
 		{
 			endPos = fileName.find(".tri");
@@ -27,6 +30,7 @@ void FileHandler::ObjectName(const char *file,
     	}
 		}
 		
+		//code for writing the name to .diredge file for given .face file 
 		else
 		{
 			endPos = fileName.find(".face");
@@ -37,18 +41,15 @@ void FileHandler::ObjectName(const char *file,
    	  }
 		
 		}
-		
-    
-    
-	//calculating the length of the object name
 	
-	
+	//if first letter in lowerecase, convert to uppercase
 	if(objectName[0] >= 'a' && objectName[0] <= 'z') 
 		objectName[0] = objectName[0] - 32;		
 		
 	destination << objectName;
 }
 
+//extract the edgeIDs from the given face file
 std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 {
 	//read face 2 face file 		
@@ -62,19 +63,23 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 	long numVertices, numFaces;
 	numVertices = numFaces = 0;
 	
+	//as the number of faces and vertices are at line 7 in every face file
+	//we will skip everyting until then
 	while(getline(source,line) && lineCount < 8)
 	{
-		//extract number of vertices from line number 7
+		//extract number of vertices and faces from line number 7
 		if(lineCount == 7)
 		{
 		
 			for(int idx = 0; idx < line.size(); idx++)
 			{
-				//std::cout << line[idx];
+				//skip everthing until we encounter numbers
 				if(line[idx] == '=')
 				{
 					
 					idx++;
+					
+					//extract the number of vertices
 					while(line[idx] != ' ')
 					{
 						
@@ -91,6 +96,7 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 					
 					idx++;
 					
+					//extract the number of faces
 					while(idx < line.size())
 					{
 						numFaces = numFaces*10 + (line[idx] - 48);
@@ -98,9 +104,7 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 					}
 					
 					break;
-				}
-				
-			
+				}	
 			}
 	
 		}
@@ -112,6 +116,10 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 	//now store all the vertices for later use, to write the same 
 	v_ID.resize(numVertices);
 	std::string temp;     //dump variable
+	
+	//iterating over lines containing vertieces
+	//and dumping unnecessary stuff to temp
+	//and only storing the vertices
 	for(int vertex = 0; vertex < numVertices; vertex++)
 	{
 		source >> temp;
@@ -123,7 +131,8 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 	//now we are on first face line
 	//if time permits optimize vectors
 	edge_ID.resize(numFaces * 3);
-	//std::string temp;
+	
+	//going through lines containing faces and storing them
 	for(int edge = 0; edge < numFaces * 3; )
 	{
 		//dumping "face" and face index in temp
@@ -137,6 +146,8 @@ std::vector<int> FileHandler::GetEdgeID(char *file, long &numVert)
 
 	source.close();
 	
+	//storing number of vertieces in the reference variable
+	//from faceindedx2directedge file
 	numVert = numVertices;
 	return edge_ID;
 }
@@ -157,8 +168,9 @@ std::vector<Vertex> FileHandler::ReadFile(char *file)
 	verticesSize = 3 * num_faces;
 	vertices.resize(verticesSize);
 	
-	//also see if we wwant to use traingle array instead of vertex, meaning vector of vector
-	//see if we need to use long here
+	//also see later if we wwant to use traingle array instead of vertex, meaning vector of vector
+	
+	//extract vertices from .face file
 	for(int vertex = 0; vertex < verticesSize; vertex++)
 	{
 		source >> vertices[vertex].x >> vertices[vertex].y >> vertices[vertex].z;
@@ -265,15 +277,16 @@ void FileHandler::OtherHalfBlock(std::ofstream &destination,
 }
 										
 
-//change file to actual name, rithgt now it takes "MyFile.txt" for every object and remove object
+//write contents to .face file
 void FileHandler::WriteFaceFileFormat(const char *file, const char *object, 
 														const std::vector<Vertex> &v_ID, 
 														const std::vector <int> &faceIndices)
 {
 	this->v_ID = v_ID;
 	
-	std::ofstream destination;//(file);
+	std::ofstream destination;
 	
+	//writing all the blocks one by one to .face file
 	destination.open(file);
 	
 	HeaderBlock(destination);
@@ -290,7 +303,7 @@ void FileHandler::WriteFaceFileFormat(const char *file, const char *object,
 
 
 
-
+//write contents to .directedge file
 void FileHandler::WriteDirectedEdgeFormat(const char *file, const char *object,
 																					std::vector<int> &edge_ID,
 																					std::vector<int> &first_DirectedEdge, 
@@ -299,6 +312,8 @@ void FileHandler::WriteDirectedEdgeFormat(const char *file, const char *object,
 	std::ofstream destination;
 	
 	destination.open(file);
+	
+	//writing all the block one by one to the .diectedge file
 	
 	HeaderBlock(destination);
 	

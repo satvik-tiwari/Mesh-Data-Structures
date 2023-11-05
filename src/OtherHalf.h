@@ -1,7 +1,7 @@
 #include <vector>
 #include "Edge.h"
 
-
+//include guard
 #ifndef OtherHalf_H
 #define OtherHalf_H
 
