@@ -58,6 +58,10 @@ This will generate a "mesh_name.diredge" file in the "src" directory itself.
 
 ###########################################################################
 
+The Analysis of the algorithmic complexity of the code is in the "Algorithmic_Complexity_Analysis.txt" file in "src" folder.
+
+###########################################################################
+
 - Note 
 
 I have not implemented the pinch point test for manifold test and calculation of handles for a mesh with 2 polyhedra with air gap between them, because of shortage of time. 
