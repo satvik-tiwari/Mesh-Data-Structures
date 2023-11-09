@@ -1,10 +1,8 @@
-## Mesh-Data-Structures
+# Mesh-Data-Structures
 
-##########################################################################
 
-First put the "sc23s2t_A1"(source code) folder at the same level in the hierarchy as the "handout_models" folder.
+## First put the "sc23s2t_A1"(source code) folder at the same level in the hierarchy as the "handout_models" folder.
 
-##########################################################################
 
 - To compile everything all at onece and perform linking:
 
@@ -13,8 +11,6 @@ First put the "sc23s2t_A1"(source code) folder at the same level in the hierarch
 This will compile all the cpp files and link them accordingly to produce individual ".o" files and two executables in the "sc23s2t_A1" folder:
   1. face2faceindex 
   2. directededge
-
-##########################################################################
 
 - To execute "face2faceindex" program do the following:
 
@@ -28,7 +24,6 @@ eg -
 
 This will generate a "mesh_name.face" file in the "sc23s2t_A1" directory itself.
  
-##########################################################################
 
 - To execute "directededge" program do the following:
 
@@ -46,17 +41,14 @@ This will generate a "mesh_name.diredge" file in the "sc23s2t_A1" directory itse
 
 - If the mesh is not Manifold, the program will print so on the terminal, followed by ids of edges or vertices where it fails.
 
-###########################################################################
 
 - to clean all the intermediates, excutables, .face, .diredge, basically everything except for cpp and header files :
 
 [userid@sc23s2t_A1]$ make clean
 
-########################################################################### 
 
 The Analysis of the algorithmic complexity of the code is in the "Algorithmic_Complexity_Analysis.txt" file in "sc23s2t_A1" folder.
 
-###########################################################################
 
 - Note 
 
